@@ -1,4 +1,7 @@
 package com.example.doctorappointmentapplication.feature.home
 
-class HomeBottomBar {
+import androidx.compose.runtime.Composable
+
+@Composable
+fun HomeBottomBar() {
 }
