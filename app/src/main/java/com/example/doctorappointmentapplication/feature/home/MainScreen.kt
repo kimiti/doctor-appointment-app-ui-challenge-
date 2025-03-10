@@ -13,7 +13,7 @@ import androidx.compose.ui.tooling.preview.Preview
 @Composable
 fun MainScreen() {
     var selectedBottom by remember { mutableStateOf(0) }
-    
+
     Scaffold(
         containerColor = Color.White,
         bottomBar = {
