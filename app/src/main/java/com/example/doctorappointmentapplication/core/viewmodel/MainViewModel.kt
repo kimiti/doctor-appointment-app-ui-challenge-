@@ -1,4 +1,8 @@
 package com.example.doctorappointmentapplication.core.viewmodel
 
-class MainViewModel {
+import androidx.lifecycle.ViewModel
+import com.example.doctorappointmentapplication.core.repository.MainRepository
+
+class MainViewModel(val repository: MainRepository): ViewModel() {
+    fun loadCategories() = repository.categoryItems
 }
