@@ -1,4 +1,5 @@
 package com.example.doctorappointmentapplication.navigation.routes
 
-class Screens {
+sealed class Screen(val route: String) {
+    data object Intro: Screen("intro")
 }
