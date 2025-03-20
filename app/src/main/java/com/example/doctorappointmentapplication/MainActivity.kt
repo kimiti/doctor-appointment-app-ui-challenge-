@@ -25,10 +25,10 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContent {
-            val nav = rememberNavController()
+            val navController = rememberNavController()
             DoctorAppointmentApplicationTheme {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    AppNavGraph(nav)
+                    AppNavGraph(navController, mainViewModel = mainViewModel)
 //                    MainScreen(items = mainViewModel.loadCategories())
                 }
             }
