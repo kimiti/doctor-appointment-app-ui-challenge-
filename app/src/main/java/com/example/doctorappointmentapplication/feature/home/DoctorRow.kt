@@ -1,19 +1,36 @@
 package com.example.doctorappointmentapplication.feature.home
 
+import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.colorResource
+import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
+import com.example.doctorappointmentapplication.R
 import com.example.doctorappointmentapplication.core.model.DoctorModel
 
 @Composable
 fun DoctorCard(item: DoctorModel, onClick: () -> Unit){
+    val context = LocalContext.current
     Card(
         modifier = Modifier
             .padding(8.dp)
@@ -25,6 +42,43 @@ fun DoctorCard(item: DoctorModel, onClick: () -> Unit){
         ),
         onClick = onClick
     ){
+        Column(
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(8.dp),
+            horizontalAlignment = Alignment.CenterHorizontally
+        ) {
+            Box(modifier = Modifier
+                .size(165.dp)
+                .clip(RoundedCornerShape(10.dp))
+                .background(colorResource(R.color.lightPurple)),
+                contentAlignment = Alignment.Center
+            ) {
+                Image(
+                    painter = painterResource(
+                        context.resources.getIdentifier(
+                            item.picture, "drawable", context.packageName
+                        )
+                    ),
+                    contentDescription = null
+                )
+            }
+            Spacer(modifier = Modifier.height(8.dp))
+            Text(
+                text = item.name,
+                color = Color.Black,
+                fontSize = 16.sp,
+                fontWeight = FontWeight.Bold
+            )
+            Spacer(modifier = Modifier.height(4.dp))
+            Text(
+                text = item.special,
+                color = colorResource(R.color.gray),
+                fontSize = 12.sp,
+                fontWeight = FontWeight.Bold
+            )
+            Spacer(modifier = Modifier.weight(1f))
+        }
 
     }
 }
@@ -32,6 +86,6 @@ fun DoctorCard(item: DoctorModel, onClick: () -> Unit){
 @Preview
 @Composable
 fun DoctorCardPreview(){
-    val item = DoctorModel(name = "Dr. John Doe", special = "Cardiology", rating = 4.5)
+    val item = DoctorModel(name = "Dr. John Doe", special = "Cardiology", rating = 4.5, picture = "dr_jessica_wyne")
     DoctorCard(item = item, onClick = {})
 }
