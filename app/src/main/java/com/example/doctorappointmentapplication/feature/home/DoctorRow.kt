@@ -4,14 +4,18 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.lazy.LazyRow
+import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
@@ -32,7 +36,7 @@ import com.example.doctorappointmentapplication.R
 import com.example.doctorappointmentapplication.core.model.DoctorModel
 
 @Composable
-fun DoctorCard(item: DoctorModel, onClick: () -> Unit){
+fun DoctorCard(item: DoctorModel, onClick: () -> Unit) {
     val context = LocalContext.current
     Card(
         modifier = Modifier
@@ -44,17 +48,18 @@ fun DoctorCard(item: DoctorModel, onClick: () -> Unit){
             containerColor = Color.White
         ),
         onClick = onClick
-    ){
+    ) {
         Column(
             modifier = Modifier
                 .fillMaxSize()
                 .padding(8.dp),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            Box(modifier = Modifier
-                .size(165.dp)
-                .clip(RoundedCornerShape(10.dp))
-                .background(colorResource(R.color.lightPurple)),
+            Box(
+                modifier = Modifier
+                    .size(165.dp)
+                    .clip(RoundedCornerShape(10.dp))
+                    .background(colorResource(R.color.lightPurple)),
                 contentAlignment = Alignment.Center
             ) {
                 Image(
@@ -113,9 +118,34 @@ fun DoctorCard(item: DoctorModel, onClick: () -> Unit){
     }
 }
 
+@Composable
+fun DoctorRow(
+    items: List<DoctorModel>,
+    onClick: (DoctorModel) -> Unit
+) {
+    Box(
+        modifier = Modifier
+            .fillMaxWidth()
+            .heightIn(min = 260.dp)
+    ) {
+        LazyRow(
+            contentPadding = PaddingValues(horizontal = 16.dp)
+        ) {
+            items(items) { item ->
+                DoctorCard(item = item, onClick = { onClick(item) })
+            }
+        }
+    }
+}
+
 @Preview
 @Composable
-fun DoctorCardPreview(){
-    val item = DoctorModel(name = "Dr. John Doe", special = "Cardiology", rating = 4.5, picture = "dr_jessica_wyne")
+fun DoctorCardPreview() {
+    val item = DoctorModel(
+        name = "Dr. John Doe",
+        special = "Cardiology",
+        rating = 4.5,
+        picture = "dr_jessica_wyne"
+    )
     DoctorCard(item = item, onClick = {})
 }
