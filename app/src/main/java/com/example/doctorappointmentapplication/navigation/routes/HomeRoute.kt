@@ -9,6 +9,6 @@ fun NavGraphBuilder.homeRoute(
     mainViewModel: MainViewModel
 ) {
     composable(Screen.Home.route) {
-        MainScreen(items = mainViewModel.loadCategories())
+        MainScreen(mainViewModel = mainViewModel)
     }
 }
