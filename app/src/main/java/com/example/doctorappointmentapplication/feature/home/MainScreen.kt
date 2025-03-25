@@ -10,12 +10,13 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.doctorappointmentapplication.core.model.CategoryModel
 import com.example.doctorappointmentapplication.core.viewmodel.MainViewModel
 import kotlin.getValue
 
 @Composable
-fun MainScreen(items: List<CategoryModel>) {
+fun MainScreen(mainViewModel: MainViewModel) {
     var selectedBottom by remember { mutableStateOf(0) }
 
     Scaffold(
@@ -31,10 +32,12 @@ fun MainScreen(items: List<CategoryModel>) {
             item { HomeHeader() }
             item { Banner() }
             item {SectionHeader(title = "Doctor Speciality", onSeeAll = null)}
-            item { CategoryRow(items = items) }
+            item { CategoryRow(items = mainViewModel.loadCategories()) }
+            item {DoctorRow(items = mainViewModel.loadDoctors(), onClick = {})}
         }
     }
 }
+
 
 @Preview
 @Composable
@@ -51,5 +54,6 @@ fun MainScreenPreview() {
             "dentistry"
         )
     )
-    MainScreen(items = items)
+    val viewModel: MainViewModel = viewModel()
+    MainScreen(mainViewModel = viewModel)
 }
