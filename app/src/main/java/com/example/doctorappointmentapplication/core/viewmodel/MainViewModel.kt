@@ -7,4 +7,5 @@ class MainViewModel(
     val repository: MainRepository = MainRepository()
 ) : ViewModel() {
     fun loadCategories() = repository.categoryItems
+    fun loadDoctors() = repository.doctors
 }
